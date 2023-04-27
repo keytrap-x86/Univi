@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>logo.ico</ApplicationIcon>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Images\certified.png" />
+		<None Remove="Resources\Images\code.png" />
+		<None Remove="Resources\Images\download.png" />
+		<None Remove="Resources\Images\logo.png" />
+		<None Remove="Resources\Images\remove.png" />
+		<None Remove="Resources\Images\uac.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="logo.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Images\certified.png" />
+		<Resource Include="Resources\Images\code.png" />
+		<Resource Include="Resources\Images\download.png" />
+		<Resource Include="Resources\Images\logo.png" />
+		<Resource Include="Resources\Images\remove.png" />
+		<Resource Include="Resources\Images\uac.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\i18n\Lang-fr_FR.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Lang-fr_FR.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\i18n\Lang-fr_FR.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Lang-fr_FR.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Downloader" Version="3.0.4" />
+		<PackageReference Include="DryIoc.Microsoft.DependencyInjection.Extension" Version="1.0.0.2" />
+		<PackageReference Include="FluentFtp" Version="46.0.2" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+		<PackageReference Include="Serilog" Version="2.12.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+		<PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Univi.Core\Univi.Core.csproj" />
+	  <ProjectReference Include="..\Univi.UI.Infrastructure\Univi.UI.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>
