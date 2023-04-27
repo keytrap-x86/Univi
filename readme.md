@@ -22,7 +22,7 @@ Here's an example configuration file:
 ```json
 {
   "Software": [
-	{
+    {
       "Name": "VLC",
       "InstallerLocation": "ftp://anonymous:anonymous@ftp.free.org/mirrors/videolan/vlc/last/win64/",
       "InstallerFileNameRegex": "vlc-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)-win64\\.exe$",
