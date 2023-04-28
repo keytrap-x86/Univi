@@ -1,7 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using System;
+using System.IO;
 using System.Threading.Tasks;
-using System.Threading;
 using Univi.Core.Interfaces;
 using Univi.Core.Models.Base;
 
@@ -20,21 +21,34 @@ public class SoftwareViewModel : BindableBase
 
     public SoftwareViewModel(ISoftware software, IRegistryService registryService)
     {
-        Software = software;
+        Software = (SoftwareBase)software;
         _registryService = registryService;
         title = software.Name;
         installationRequiresPrivileges = software.InstallationRequiresPrivileges;
         installerPath = software.InstallerLocation;
         isDynamic = software.IsDynamic;
+
+        var iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Icons", Title + ".png");
+        if (File.Exists(iconPath))
+        {
+            IconPath = iconPath;
+        }
     }
 
     #region Properties
 
-    private ISoftware software;
-    public ISoftware Software
+    private string? _iconPath;
+    public string? IconPath
     {
-        get { return software; }
-        set { SetProperty(ref software, value); }
+        get => _iconPath;
+        set => SetProperty(ref _iconPath, value);
+    }
+
+    private SoftwareBase software;
+    public SoftwareBase Software
+    {
+        get => software;
+        set => SetProperty(ref software, value);
     }
 
     private bool isSelected;
@@ -76,17 +90,10 @@ public class SoftwareViewModel : BindableBase
         set => SetProperty(ref isDynamic, value);
     }
 
-    private double downloadPercentage;
-    public double DownloadPercentage
-    {
-        get { return ((SoftwareBase)Software).SetupDownloadProgress; }
-        set { SetProperty(ref downloadPercentage, value); }
-    }
-
     private bool isInstalling;
     public bool IsInstalling
     {
-        get { return isInstalling; }
+        get => isInstalling;
         set
         {
             if (SetProperty(ref isInstalling, value))
@@ -99,8 +106,8 @@ public class SoftwareViewModel : BindableBase
     private ISoftwareUninstallInfo _uninstallInfo;
     public ISoftwareUninstallInfo UninstallInfo
     {
-        get { return _uninstallInfo; }
-        set { SetProperty(ref _uninstallInfo, value); }
+        get => _uninstallInfo;
+        set => SetProperty(ref _uninstallInfo, value);
     }
 
     #endregion
@@ -111,6 +118,7 @@ public class SoftwareViewModel : BindableBase
     public DelegateCommand UninstallCommand => new(async () => await Software.Uninstall());
 
     #endregion
+
 
     public async Task Install()
     {

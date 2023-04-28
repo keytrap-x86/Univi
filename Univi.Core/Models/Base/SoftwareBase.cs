@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Univi.Core.Interfaces;
 
 namespace Univi.Core.Models.Base;
-public abstract class SoftwareBase : ISoftware
+public abstract class SoftwareBase : BindableBase, ISoftware
 {
     private readonly IProcessService _processService;
     private readonly IRegistryService _registryService;
@@ -22,7 +23,12 @@ public abstract class SoftwareBase : ISoftware
     public virtual string? InstallerFileNameRegex { get; set; }
     public bool IsDynamic { get; set; }
 
-    public double SetupDownloadProgress { get; set; }
+    private double setupDownloadProgress;
+    public double SetupDownloadProgress
+    {
+        get { return setupDownloadProgress; }
+        set { SetProperty(ref setupDownloadProgress, value); }
+    }
 
     protected SoftwareBase(
         IProcessService processService,
@@ -52,8 +58,7 @@ public abstract class SoftwareBase : ISoftware
             throw new ArgumentNullException(nameof(InstallerLocation), $"La propriété {nameof(InstallerLocation)} ne peut être vide");
 
         var setupProvider = _setupProviderFactory.Create(InstallerLocation);
-        InstallerLocation = await setupProvider.GetInstaller(this, (i) => i = SetupDownloadProgress, token);
-
+        InstallerLocation = await setupProvider.GetInstaller(this, (i) => SetupDownloadProgress = i, token);
 
         if (InstallationRequiresPrivileges && _processService.IsRunningAsAdmin == false)
         {

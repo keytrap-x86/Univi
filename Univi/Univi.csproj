@@ -16,6 +16,7 @@
 		<None Remove="Resources\Images\download.png" />
 		<None Remove="Resources\Images\logo.png" />
 		<None Remove="Resources\Images\remove.png" />
+		<None Remove="Resources\Images\software.png" />
 		<None Remove="Resources\Images\uac.png" />
 	</ItemGroup>
 
@@ -32,6 +33,7 @@
 		<Resource Include="Resources\Images\download.png" />
 		<Resource Include="Resources\Images\logo.png" />
 		<Resource Include="Resources\Images\remove.png" />
+		<Resource Include="Resources\Images\software.png" />
 		<Resource Include="Resources\Images\uac.png" />
 	</ItemGroup>
 

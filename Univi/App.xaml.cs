@@ -62,6 +62,7 @@ public partial class App : PrismApplication
         container.Register<SmbSetupProvider>();
         container.Register<HttpxSetupProvider>();
         container.Register<SoftwareViewModel>();
+        container.Register<FileDownloadService>();
 
     }
 

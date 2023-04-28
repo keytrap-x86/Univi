@@ -21,8 +21,6 @@ public class MainViewModel : BindableBase
     private readonly IProcessService _processService;
     private readonly IAppSettingsReader _appSettingsReader;
     private readonly IContainerProvider _containerProvider;
-    private readonly IContainerProvider containerProvider;
-    private readonly IRegistryService _registryService;
     private readonly ISoftwareManagerService _softwareManagerService;
     private readonly ISoftwareUninstallService _softwareUninstallService;
     private readonly ISetupProviderFactory _setupProviderFactory;
@@ -54,7 +52,6 @@ public class MainViewModel : BindableBase
     public string? CurrentConsoleUsername { get; set; }
 
 
-
     private string _searchText;
     public string SearchText
     {
@@ -80,7 +77,6 @@ public class MainViewModel : BindableBase
         IProcessService processService,
         IAppSettingsReader appSettingsReader,
         IContainerProvider containerProvider,
-        IRegistryService registryService,
         ISoftwareManagerService softwareManagerService,
         ISoftwareUninstallService softwareUninstallService,
         ISetupProviderFactory setupProviderFactory)
@@ -90,7 +86,6 @@ public class MainViewModel : BindableBase
         _processService = processService;
         _appSettingsReader = appSettingsReader;
         _containerProvider = containerProvider;
-        _registryService = registryService;
         _softwareManagerService = softwareManagerService;
         _softwareUninstallService = softwareUninstallService;
         _setupProviderFactory = setupProviderFactory;

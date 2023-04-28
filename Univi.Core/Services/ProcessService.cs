@@ -25,6 +25,25 @@ public class ProcessService : IProcessService
         var exitCode = -1;
 
         var isMsiFile = filename.Contains(".msi", StringComparison.InvariantCultureIgnoreCase);
+
+        if (isMsiFile)
+        {
+            // Use msiexec to run the installer
+            var msiArgs = $"/i \"{filename}\" /quiet /norestart";
+
+            if (string.IsNullOrEmpty(args) == false)
+                msiArgs += $" {args}";
+
+            exitCode = await RunProgramAsync("msiexec", msiArgs, noWindow, waitForExit, token);
+
+            if (exitCode != 0)
+            {
+                _logger.LogError("Erreur lors de l'installation de {f} : {e}", filename, exitCode);
+            }
+
+            return exitCode;
+        }
+
         var pi = new ProcessStartInfo(filename)
         {
             CreateNoWindow = noWindow,
